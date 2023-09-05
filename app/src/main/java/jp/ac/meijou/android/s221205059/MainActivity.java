@@ -5,15 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import jp.ac.meijou.android.s221205059.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        TextView text = findViewById(R.id.text);
-
-        text.setText(R.string.kani);
+        binding.text.setText(R.string.kani);
     }
 }
