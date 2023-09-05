@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -64,12 +65,18 @@ public class MainActivity extends AppCompatActivity {
         binding.editTextText2.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                Log.d("Char", s.toString());
+                Log.d("start", String.format("%d", start));
+                Log.d("count", String.format("%d", count));
+                Log.d("after", String.format("%d", after));
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                Log.d("Char", s.toString());
+                Log.d("start", String.format("%d", start));
+                Log.d("before", String.format("%d", before));
+                Log.d("count", String.format("%d", count));
             }
 
             @Override
