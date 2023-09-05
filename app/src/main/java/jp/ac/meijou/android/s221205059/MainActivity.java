@@ -17,8 +17,10 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.text.setText(R.string.kani);
+        binding.button.setOnClickListener(view -> {
+            binding.text.setText(R.string.kani);
+            binding.imageView2.setImageResource(R.drawable.baseline_restaurant_menu_24);
+        });
 
-        binding.imageView2.setImageResource(R.drawable.baseline_restaurant_menu_24);
     }
 }
