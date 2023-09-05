@@ -2,6 +2,7 @@ package jp.ac.meijou.android.s221205059;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -17,5 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.text.setText(R.string.kani);
+
+        binding.imageView2.setImageResource(R.drawable.baseline_restaurant_menu_24);
     }
 }
