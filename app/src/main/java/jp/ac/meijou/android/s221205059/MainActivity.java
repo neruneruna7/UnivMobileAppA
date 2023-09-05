@@ -1,6 +1,7 @@
 package jp.ac.meijou.android.s221205059;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.datastore.preferences.core.PreferencesKeys;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -34,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         prefDataStore = PrefDataStore.getInstance(this);
-        prefDataStore.getString("name")
-                        .ifPresent(name -> binding.textView.setText(name));
 
 
         binding.changeButton.setOnClickListener(view -> {
@@ -47,6 +46,23 @@ public class MainActivity extends AppCompatActivity {
             var text = binding.editTextText.getText().toString();
             prefDataStore.setString("name", text);
         });
+
+        binding.deleteButton.setOnClickListener(view -> {
+            var prefkey = PreferencesKeys.stringKey("name");
+            prefDataStore.set(prefkey, "");
+        });
+
+        Log.d("name", "onCreate text " + binding.textView.getText());
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        prefDataStore.getString("name")
+                .ifPresent(name -> binding.textView.setText(name));
+
+        Log.d("name", "onStart text " + binding.textView.getText());
 
     }
 }
