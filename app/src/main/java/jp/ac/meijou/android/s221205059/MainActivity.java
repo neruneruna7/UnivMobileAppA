@@ -15,6 +15,7 @@ import jp.ac.meijou.android.s221205059.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private PrefDataStore prefDataStore;
 
     // javaのenum使いづらい？
     enum TextContent {
@@ -32,57 +33,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        prefDataStore = PrefDataStore.getInstance(this);
+        prefDataStore.getString("name")
+                        .ifPresent(name -> binding.textView.setText(name));
 
-        int[] texts = {TextContent.Gorira.id, TextContent.Kani.id};
 
-        binding.button.setOnClickListener(view -> {
+        binding.changeButton.setOnClickListener(view -> {
             var text = binding.editTextText.getText().toString();
-            binding.text.setText(text);
-
+            binding.textView.setText(text);
         });
 
-        binding.button2.setOnClickListener(View -> {
-            binding.imageView2.setImageResource(R.drawable.baseline_restaurant_menu_24);
-        });
-
-        binding.editTextText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                binding.text.setText(String.format("%s%s", s.toString(), binding.editTextText2.getText().toString()));
-            }
-        });
-
-        binding.editTextText2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.d("Char", s.toString());
-                Log.d("start", String.format("%d", start));
-                Log.d("count", String.format("%d", count));
-                Log.d("after", String.format("%d", after));
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("Char", s.toString());
-                Log.d("start", String.format("%d", start));
-                Log.d("before", String.format("%d", before));
-                Log.d("count", String.format("%d", count));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                binding.text.setText(String.format("%s%s", s.toString(), binding.editTextText.getText().toString()));
-            }
+        binding.saveButton.setOnClickListener(view -> {
+            var text = binding.editTextText.getText().toString();
+            prefDataStore.setString("name", text);
         });
 
     }
