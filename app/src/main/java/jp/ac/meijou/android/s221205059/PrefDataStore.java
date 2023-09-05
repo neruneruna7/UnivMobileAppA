@@ -41,12 +41,28 @@ public class PrefDataStore {
                 .subscribe();
     }
 
+    public <T> void set(Preferences.Key<T> key, T value) {
+        dataStore.updateDataAsync(prefsIn -> {
+            var mutablePreferences  = prefsIn.toMutablePreferences();
+            mutablePreferences.set(key, value);
+            return Single.just(mutablePreferences);
+        })
+        .subscribe();
+
+    }
+
     public Optional<String> getString(String key) {
         return dataStore.data()
                 .map(prefs -> {
                     var prefkey = PreferencesKeys.stringKey(key);
                     return Optional.ofNullable(prefs.get(prefkey));
                 })
+                .blockingFirst();
+    }
+
+    public <T> Optional<T> get(Preferences.Key<T> key) {
+        return dataStore.data()
+                .map(prefs -> Optional.ofNullable(prefs.get(key)))
                 .blockingFirst();
     }
 
