@@ -57,7 +57,24 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                binding.text.setText(s.toString());
+                binding.text.setText(String.format("%s%s", s.toString(), binding.editTextText2.getText().toString()));
+            }
+        });
+
+        binding.editTextText2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                binding.text.setText(String.format("%s%s", s.toString(), binding.editTextText.getText().toString()));
             }
         });
 
