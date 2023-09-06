@@ -9,15 +9,12 @@ import java.io.StringBufferInputStream;
 
 import jp.ac.meijou.android.s221205059.databinding.ActivityMain2Binding;
 import jp.ac.meijou.android.s221205059.databinding.ActivityMainBinding;
-import java.util.ArrayList;
+import java.util.Stack;
 
 public class MainActivity2 extends AppCompatActivity {
 
     private ActivityMain2Binding binding;
-    private String calcString;
-
-    private ArrayList<Integer> InvPolandOpcode;
-    private String InvPolandOperand;
+    private Stack<String> calcString;
 
 
     // javaのenum使いづらい？
@@ -40,85 +37,92 @@ public class MainActivity2 extends AppCompatActivity {
 
 //        binding.textView2.setVisibility(View.GONE);
 
+
+        binding.buttonEq.setOnClickListener(view -> {
+
+
+
+        });
+
         binding.buttonAdd.setOnClickListener(view -> {
-            calcString.concat(Operators.Add.operator);
-            binding.textView2.setText(calcString);
+            calcString.push(Operators.Add.operator);
+            binding.textView2.setText(calcString.toString());
 
         });
 
         binding.buttonSub.setOnClickListener(view -> {
-            calcString.concat(Operators.Sub.operator);
-            binding.textView2.setText(calcString);
+            calcString.push(Operators.Sub.operator);
+            binding.textView2.setText(calcString.toString());
 
         });
 
         binding.buttonMulti.setOnClickListener(view -> {
-            calcString.concat(Operators.Multi.operator);
-            binding.textView2.setText(calcString);
+            calcString.push(Operators.Multi.operator);
+            binding.textView2.setText(calcString.toString());
 
         });
 
         binding.buttonDiv.setOnClickListener(view -> {
-            calcString.concat(Operators.Div.operator);
-            binding.textView2.setText(calcString);
+            calcString.push(Operators.Div.operator);
+            binding.textView2.setText(calcString.toString());
 
         });
 
         binding.buttonAC.setOnClickListener(view -> {
-            calcString = "".toString();
-            binding.textView2.setText(calcString);
+            calcString.clear();
+            binding.textView2.setText(calcString.toString());
 
         });
 
         binding.button0.setOnClickListener(view -> {
-            calcString.concat("0");
-            binding.textView2.setText(calcString);
+            calcString.push("0");
+            binding.textView2.setText(calcString.toString());
 
         });
 
         binding.button1.setOnClickListener(view -> {
-            calcString.concat("1");
-            binding.textView2.setText(calcString);
+            calcString.push("1");
+            binding.textView2.setText(calcString.toString());
         });
 
         binding.button2.setOnClickListener(view -> {
-            calcString.concat("2");
-            binding.textView2.setText(calcString);
+            calcString.push("2");
+            binding.textView2.setText(calcString.toString());
         });
 
         binding.button3.setOnClickListener(view -> {
-            calcString.concat("3");
-            binding.textView2.setText(calcString);
+            calcString.push("3");
+            binding.textView2.setText(calcString.toString());
         });
 
         binding.button4.setOnClickListener(view -> {
-            calcString.concat("4");
-            binding.textView2.setText(calcString);
+            calcString.push("4");
+            binding.textView2.setText(calcString.toString());
         });
 
         binding.button5.setOnClickListener(view -> {
-            calcString.concat("5");
-            binding.textView2.setText(calcString);
+            calcString.push("5");
+            binding.textView2.setText(calcString.toString());
         });
 
         binding.button6.setOnClickListener(view -> {
-            calcString.concat("6");
-            binding.textView2.setText(calcString);
+            calcString.push("6");
+            binding.textView2.setText(calcString.toString());
         });
 
         binding.button7.setOnClickListener(view -> {
-            calcString.concat("7");
-            binding.textView2.setText(calcString);
+            calcString.push("7");
+            binding.textView2.setText(calcString.toString());
         });
 
         binding.button8.setOnClickListener(view -> {
-            calcString.concat("8");
-            binding.textView2.setText(calcString);
+            calcString.push("8");
+            binding.textView2.setText(calcString.toString());
         });
 
         binding.button9.setOnClickListener(view -> {
-            calcString.concat("9");
-            binding.textView2.setText(calcString);
+            calcString.push("9");
+            binding.textView2.setText(calcString.toString());
         });
     }
 
