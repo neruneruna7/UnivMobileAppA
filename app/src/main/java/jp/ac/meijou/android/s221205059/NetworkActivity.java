@@ -3,8 +3,11 @@ package jp.ac.meijou.android.s221205059;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -36,11 +39,35 @@ public class NetworkActivity extends AppCompatActivity {
         binding = ActivityNetworkBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        var request = new Request.Builder()
-                .url("https://api.github.com/gists/c2a7c39532239ff261be")
+        binding.imButton.setOnClickListener(view -> {
+            var imText = binding.imEditText.getText().toString();
+//            var imUrlText = String.format("https://placehold.jp/808080/ffffff/150x150.png?text=%s", imText);
+            var url = Uri.parse("https://placehold.jp/500x500.png")
+                    .buildUpon()
+                    .appendQueryParameter("text", imText)
+                    .build()
+                    .toString();
+
+            getImage(url);
+
+
+
+        });
+
+//        getImage("https://placehold.jp/350x350.png");
+
+    }
+
+    private void getImage(String url) {
+
+//        binding.gistText.setText("LOADING...");
+        binding.progressBar.setVisibility(View.VISIBLE);
+
+        var imRequest = new Request.Builder()
+                .url(url)
                 .build();
 
-        okHttpClient.newCall(request).enqueue(new Callback() {
+        okHttpClient.newCall(imRequest).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
 
@@ -48,15 +75,16 @@ public class NetworkActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                var gist = gistJsonAdapter.fromJson(response.body().source());
+                var bitmap = BitmapFactory.decodeStream(response.body().byteStream());
 
-                Optional.ofNullable(gist)
-                        .map(g -> g.files.get("OkHttp.txt"))
-                        .ifPresent(gistFile -> {
-                            runOnUiThread(() -> binding.gistText.setText(gistFile.content));
-//                            Log.d("json", gistFile);
-                        });
+                runOnUiThread(() -> {
+                    binding.imageView.setImageBitmap(bitmap);
+//                    binding.gistText.setText("LOADED!");
+                    binding.progressBar.setVisibility(View.INVISIBLE);
+
+                });
             }
         });
+
     }
 }
